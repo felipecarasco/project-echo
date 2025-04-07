@@ -33,7 +33,6 @@ def generate_agent_responses():
 
 st.set_page_config(layout="wide")
 
-
 st.logo(
     "assets/echo_logo_light.png",
     size="large",
@@ -44,67 +43,10 @@ st.logo(
 # Navigation bar CSS - Updated for full width and top positioning
 st.markdown(
     """
-    <style>
-    /* Hide default Streamlit elements to make space for navbar */
-    #MainMenu {visibility: hidden;}
-    header {visibility: hidden;}
-    
-    /* Full width navbar styling */
-    .navbar-container {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        background-color: #0e53a7;
-        z-index: 1000;
-        padding: 0.8rem;
-    }
-    
-    .navbar {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        color: white;
-        max-width: 1200px;
-        margin: 0 auto;
-    }
-    
-    .nav-items {
-        display: flex;
-        gap: 20px;
-    }
-    
-    .nav-items a {
-        color: white;
-        text-decoration: none;
-        font-weight: 500;
-        padding: 5px 10px;
-        border-radius: 5px;
-        transition: background-color 0.3s;
-    }
-    
-    .nav-items a:hover {
-        background-color: rgba(255, 255, 255, 0.2);
-    }
-    
-    .active-nav {
-        background-color: rgba(255, 255, 255, 0.2);
-    }
-    
-    .user-profile {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
-    
-    /* Add padding to the top of the main content to prevent overlap with navbar */
-    .main-content {
-        margin-top: 60px;
-    }
-    
-    /* Fundo para todas as abas */
+    <style>  
+
     div[data-testid="stHorizontalBlock"] > div {
-        background-color: #f0f8ff;
+        background-color: #f4f4f5;
         padding: 20px;
         border-radius: 10px;
     }
