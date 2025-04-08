@@ -21,7 +21,6 @@ def generate_agent_responses():
         {"name": "UrbanPlannerAgent", "avatar": "🏗️", "role": "urban planner", "content": "And ensure urban development aligns with both sustainability goals and community expectations."},
         {"name": "InvestorAgent", "avatar": "💰", "role": "investment strategist", "content": "With clear data, we can also create better incentives for developers to support affordable and inclusive housing projects."},
         {"name": "CommunityEngagementAgent", "avatar": "🏡", "role": "community engagement specialist", "content": "Great! I’ll start working on collecting responses so we can move forward with an informed plan."},
-        
     ]    
 
     responses = []
@@ -40,51 +39,36 @@ st.logo(
     icon_image="assets/logo.png",
 )
 
-# Navigation bar CSS - Updated for full width and top positioning
 st.markdown(
     """
     <style>  
 
     div[data-testid="stHorizontalBlock"] > div {
-        background-color: #f4f4f5;
+        background-color: #F0F2F6;
         padding: 20px;
         border-radius: 10px;
     }
+
+    textarea {
+        background-color: #fff !important;
+    }    
+
+    [data-testid="stFileUploaderDropzone"] {
+        background-color: #fff !important;
+        padding: 10px !important;
+        border-radius: 8px !important;
+    }
+
     </style>
     """,
     unsafe_allow_html=True
 )
 
-
-# Simulando cenários já criados
 if "scenarios" not in st.session_state:
     st.session_state.scenarios = ["Scenario 1", "Scenario 2", "Scenario 3"]
 
 if "selected_scenario" not in st.session_state:
     st.session_state.selected_scenario = st.session_state.scenarios[0]
-
-# st.markdown(
-#     f"""
-#     <div class="navbar-container">
-#         <div class="navbar">
-#             <div class="nav-items">
-#                 <a href="#" class="active-nav">Home</a>
-#                 <a href="#">Scenarios</a>
-#                 <a href="#">Reports</a>
-#                 <a href="#">Settings</a>
-#             </div>
-#             <div class="user-profile">
-#                 <span><strong>Current:</strong> {st.session_state.selected_scenario}</span>
-#                 <span>|</span>
-#                 <span>User Profile</span>
-#                 <span>👤</span>
-#             </div>
-#         </div>
-#     </div>
-#     <div class="main-content">
-#     """,
-#     unsafe_allow_html=True
-# )
 
 st.sidebar.title("Scenarios")
 
@@ -159,24 +143,19 @@ with tabs[1]:
 
     MULTI_AGENT_KEY_PREFIX = "multi_agent_"
 
-    # Initialize messages if they don't exist
     if f"{MULTI_AGENT_KEY_PREFIX}messages" not in st.session_state:
         st.session_state[f"{MULTI_AGENT_KEY_PREFIX}messages"] = [{"role": "assistant", "content": "Hello! We are a team of agents. How can we assist you?"}]
-        # Add a flag to track if responses have been generated
         st.session_state[f"{MULTI_AGENT_KEY_PREFIX}responses_generated"] = False
 
-    # Display all existing messages
     for msg in st.session_state[f"{MULTI_AGENT_KEY_PREFIX}messages"]:
         with st.chat_message(msg["role"], avatar=msg.get("avatar", "🤖")):
             st.write(msg["content"])    
 
-    # Generate responses only if they haven't been generated yet
     if not st.session_state.get(f"{MULTI_AGENT_KEY_PREFIX}responses_generated", False):
         agent_responses = generate_agent_responses()
         for response in agent_responses:
             st.session_state[f"{MULTI_AGENT_KEY_PREFIX}messages"].append(response)
             with st.chat_message("assistant", avatar=response["avatar"]):
-                st.write_stream(stream_data(response["content"]))
-        
-        # Mark responses as generated
+                st.write_stream(stream_data(response["content"]))        
+    
         st.session_state[f"{MULTI_AGENT_KEY_PREFIX}responses_generated"] = True
